@@ -29,8 +29,8 @@ NAME = FdF
 all:	$(NAME)
 
 # Regla para crear el ejecutable $(NAME)
-$(NAME):	$(OBJS) $(LIBFT_DIR)/libft.a $(MINILIBX_DIR)/libmlx.a
-	$(CC) $(CFLAGS) -o $@ $^ -L $(LIBFT_DIR) -lft -L $(MINILIBX_DIR) -lmlx -lm -lpthread -ldl
+$(NAME):	$(OBJS) $(LIBFT_DIR)/libft.a $(MINILIBX_DIR)/libmlx_Linux.a
+	$(CC) $(CFLAGS) -o $@ $^ -L $(LIBFT_DIR) -lft -L $(MINILIBX_DIR) -lmlx_Linux -lX11 -lXext -lm -lpthread -ldl
 
 # Regla para compilar los archivos objeto
 $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c | $(OBJ_DIR)
@@ -46,7 +46,7 @@ $(LIBFT_DIR)/libft.a:
 	$(MAKE) -C $(LIBFT_DIR)
 
 # Regla para compilar la librería minilibx.a
-$(MINILIBX_DIR)/libmlx.a:
+$(MINILIBX_DIR)/libmlx_Linux.a:
 	@echo "Compilando minilibx..."
 	$(MAKE) -C $(MINILIBX_DIR)
 
