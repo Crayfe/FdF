@@ -11,52 +11,20 @@
 /* ************************************************************************** */
 #include "FdF.h"
 
-#define WIDTH	400
-#define	HEIGHT	400
-
 int	main(int argc, char **argv)
 {
-	int	fd;
-	char	*line;
-	
+	t_mlx_data	mlibx;
+	int			**fdf_model;
+
 	if (argc == 1)
-		fd = open("model_files/pyramide.fdf", 0);
+		fdf_model = load_model("model_files/pyramide.fdf");
 	else if (argc == 2)
-		fd = open(argv[1], 0);
-	if (fd > 0)
-	{
-		line = get_next_line(fd);
-		while (line)
-		{
-			ft_printf("%s", line);
-			free(line);
-			line = get_next_line(fd);
-		}
-		close(fd);
-	}
-
-
-	/*
-	void	*mlx_ptr;
-	void	*mlx_window;
-
-	mlx_ptr = mlx_init();
-	if (!mlx_ptr)
+		fdf_model = load_model(argv[1]);
+	if (!fdf_model)
 		return (1);
-	mlx_window = mlx_new_window(mlx_ptr, HEIGHT, WIDTH, "Test window");
-	if (!mlx_window)
+	if (setup_win(&mlibx) == 0)
 	{
-		mlx_destroy_display(mlx_ptr);
-		free(mlx_ptr);
-		return (1);
+		mlx_loop(mlibx.mlx_ptr);
 	}
-
-	mlx_loop(mlx_ptr);
-	mlx_destroy_window(mlx_ptr, mlx_window);
-	mlx_destroy_display(mlx_ptr);
-	free(mlx_ptr);
-*/
-	(void) argc;
-	(void) argv;
 	return (0);
 }

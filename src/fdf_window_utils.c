@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   FdF.h                                              :+:      :+:    :+:   */
+/*   fdf_window_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cayuso-f <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -9,30 +9,33 @@
 /*   Updated: 2024/11/25 11:39:49 by cayuso-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../libft/src/libft.h"
-#include "../minilibx/mlx.h"
-#include "../minilibx/mlx_int.h"
-#define WIDTH   400
-#define HEIGHT  400
+#include "FdF.h"
 
-typedef struct s_mlx_data
+int	handle_keys(int key, t_mlx_data *mlibx)
 {
-	void	*mlx_ptr;
-	void	*win_ptr;
-}	t_mlx_data;
+	ft_printf("Key pressed: %i\n", key);
+	if (key == 65307)
+	{
+		mlx_destroy_window(mlibx->mlx_ptr, mlibx->win_ptr);
+		mlx_destroy_display(mlibx->mlx_ptr);
+		free(mlibx->mlx_ptr);
+		exit(0);
+	}
+	return (0);
+}
 
-typedef struct s_model_data
+int	setup_win(t_mlx_data *mlibx)
 {
-	int	**model;
-	int	**colors;
-	int	num_rows;
-	int	num_cols;
-}	t_model;
-
-/* fdf_model_utils.c */
-int	get_num_cols(char *file);
-int	get_num_rows(char *file);
-int	**load_model(char *model_file);
-/* fdf_window_utils.c */
-int	handle_keys(int key, t_mlx_data *mlibx);
-int	setup_win(t_mlx_data *mlibx);
+	mlibx->mlx_ptr = mlx_init();
+	if (!mlibx->mlx_ptr)
+		return (1);
+	mlibx->win_ptr = mlx_new_window(mlibx->mlx_ptr, HEIGHT, WIDTH, "FdF");
+	if (!mlibx->win_ptr)
+	{
+		mlx_destroy_display(mlibx->mlx_ptr);
+		free(mlibx->mlx_ptr);
+		return (1);
+	}
+	mlx_key_hook(mlibx->win_ptr, handle_keys, mlibx);
+	return (0);
+}
