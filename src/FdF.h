@@ -15,12 +15,6 @@
 #define WIDTH   400
 #define HEIGHT  400
 
-typedef struct s_mlx_data
-{
-	void	*mlx_ptr;
-	void	*win_ptr;
-}	t_mlx_data;
-
 typedef struct s_model_data
 {
 	int	**model;
@@ -29,10 +23,18 @@ typedef struct s_model_data
 	int	num_cols;
 }	t_model;
 
+typedef struct s_mlx_data
+{
+	void	*mlx_ptr;
+	void	*win_ptr;
+	t_model	*fdf_model;
+}	t_mlx_data;
+
 /* fdf_model_utils.c */
-int	get_num_cols(char *file);
-int	get_num_rows(char *file);
-int	**load_model(char *model_file);
+int		get_num_cols(char *file);
+int		get_num_rows(char *file);
+t_model	*load_model(char *model_file);
+void	free_model(t_model	*m);
 /* fdf_window_utils.c */
-int	handle_keys(int key, t_mlx_data *mlibx);
-int	setup_win(t_mlx_data *mlibx);
+int		handle_keys(int key, t_mlx_data *mlibx);
+int		setup_win(t_mlx_data *mlibx);

@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror -ggdb
 
 LIBFT_DIR = libft
 MINILIBX_DIR = minilibx

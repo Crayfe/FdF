@@ -14,7 +14,7 @@
 int	main(int argc, char **argv)
 {
 	t_mlx_data	mlibx;
-	int			**fdf_model;
+	t_model		*fdf_model;
 
 	if (argc == 1)
 		fdf_model = load_model("model_files/pyramide.fdf");
@@ -22,6 +22,8 @@ int	main(int argc, char **argv)
 		fdf_model = load_model(argv[1]);
 	if (!fdf_model)
 		return (1);
+	mlibx.fdf_model = fdf_model;
+	
 	if (setup_win(&mlibx) == 0)
 	{
 		mlx_loop(mlibx.mlx_ptr);

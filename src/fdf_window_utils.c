@@ -19,6 +19,7 @@ int	handle_keys(int key, t_mlx_data *mlibx)
 		mlx_destroy_window(mlibx->mlx_ptr, mlibx->win_ptr);
 		mlx_destroy_display(mlibx->mlx_ptr);
 		free(mlibx->mlx_ptr);
+		free_model(mlibx->fdf_model);
 		exit(0);
 	}
 	return (0);

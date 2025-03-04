@@ -23,19 +23,14 @@ int	get_num_cols(char *file)
 	{
 		num_lines = 0;
 		line = get_next_line(fd);
-		get_next_line(-1);
 		split = ft_split(line, ' ');
 		free(line);
+		get_next_line(-1);
 		while (split[num_lines])
-		{
-			if (num_lines > 0)
-				free(split[num_lines - 1]);
 			num_lines++;
-		}
-		free(split[num_lines - 1]);
-		free(split);
+		free_2d_str(split);
 		close(fd);
-		return (num_lines);
+		return (num_lines - 1);
 	}
 	return (-1);
 }
@@ -54,33 +49,49 @@ int	get_num_rows(char *file)
 			if (c == '\n')
 				++num_lines;
 		close(fd);
-		return (num_lines);
+		return (num_lines -1);
 	}
 	return (-1);
 }
 
-int	**load_model(char *model_file)
+int	load_new_row(t_model *m, char *line, int row)
 {
-	char	*line;
-	int		fd;
-	int		**fdf_model;
-	int		num_rows;
-	int		num_cols;
+	char	**split;
+	int		i;
 
-	num_cols = get_num_cols(model_file);
-	num_rows = get_num_rows(model_file);
-	ft_printf("NUM ROWS: %i NUM_COLS %i\n", num_rows, num_cols);
-	fdf_model = (int **)malloc(sizeof(int) * num_cols * num_rows);
+	if (!line)
+		return (0);
+	split = ft_split(line, ' ');
+	free(line);
+	i = 0;
+	while (i <= m->num_cols)
+	{
+		m->model[row][i] = ft_atoi(split[i]);
+		i++;
+	}
+	free_2d_str(split);
+	return (1);
+}
+
+t_model	*load_model(char *model_file)
+{
+	int		fd;
+	int		i;
+	t_model	*fdf_model;
+
+	fdf_model = malloc(sizeof(t_model));
+	fdf_model->num_cols = get_num_cols(model_file);
+	fdf_model->num_rows = get_num_rows(model_file);
+	fdf_model->model = malloc(sizeof(int *) * fdf_model->num_rows);
+	i = -1;
+	while (i++ < fdf_model->num_rows)
+		fdf_model->model[i] = malloc(sizeof(int) * fdf_model->num_cols);
 	fd = open(model_file, 0);
 	if (fd > 0)
 	{
-		line = get_next_line(fd);
-		while (line)
-		{
-			ft_printf("%s", line);
-			free(line);
-			line = get_next_line(fd);
-		}
+		i = 0;
+		while (load_new_row(fdf_model, get_next_line(fd), i))
+			i++;
 		close(fd);
 	}
 	return (fdf_model);
@@ -88,9 +99,14 @@ int	**load_model(char *model_file)
 
 void	free_model(t_model	*m)
 {
-	int	**array_model;
 	int	i;
 
 	i = 0;
-	array_model = m->model;
+	while (i < m->num_rows)
+	{
+		ft_printf("wakawaka\n");
+		free((int *)m->model[i++]);
+	}
+	free(m->model);
+	free(m);
 }
