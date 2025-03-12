@@ -30,7 +30,7 @@ int	get_num_cols(char *file)
 			num_lines++;
 		free_2d_str(split);
 		close(fd);
-		return (num_lines - 1);
+		return (num_lines);
 	}
 	return (-1);
 }
@@ -49,7 +49,7 @@ int	get_num_rows(char *file)
 			if (c == '\n')
 				++num_lines;
 		close(fd);
-		return (num_lines -1);
+		return (num_lines - 1);
 	}
 	return (-1);
 }
@@ -64,7 +64,7 @@ int	load_new_row(t_model *m, char *line, int row)
 	split = ft_split(line, ' ');
 	free(line);
 	i = 0;
-	while (i <= m->num_cols)
+	while (i <= m->num_cols - 1)
 	{
 		m->model[row][i] = ft_atoi(split[i]);
 		i++;
@@ -84,7 +84,7 @@ t_model	*load_model(char *model_file)
 	fdf_model->num_rows = get_num_rows(model_file);
 	fdf_model->model = malloc(sizeof(int *) * fdf_model->num_rows);
 	i = -1;
-	while (i++ < fdf_model->num_rows)
+	while (i++ < fdf_model->num_rows - 1)
 		fdf_model->model[i] = malloc(sizeof(int) * fdf_model->num_cols);
 	fd = open(model_file, 0);
 	if (fd > 0)
@@ -103,10 +103,26 @@ void	free_model(t_model	*m)
 
 	i = 0;
 	while (i < m->num_rows)
-	{
-		ft_printf("wakawaka\n");
 		free((int *)m->model[i++]);
-	}
 	free(m->model);
 	free(m);
+}
+
+void	print_model(t_model *fdf)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < fdf->num_rows)
+	{
+		j = 0;
+		while (j < fdf->num_cols)
+		{
+			ft_printf("%i ", fdf->model[i][j]);
+			j++;
+		}
+		ft_printf("\n");
+		i++;
+	}
 }

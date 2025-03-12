@@ -35,6 +35,7 @@ int		get_num_cols(char *file);
 int		get_num_rows(char *file);
 t_model	*load_model(char *model_file);
 void	free_model(t_model	*m);
+void	print_model(t_model *m);
 /* fdf_window_utils.c */
 int		handle_keys(int key, t_mlx_data *mlibx);
 int		setup_win(t_mlx_data *mlibx);
