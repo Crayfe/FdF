@@ -104,7 +104,7 @@ void	*mlx_int_new_xshm_image(t_xvar *xvar,int width,int height,int format)
 
 
 
-void	*mlx_int_new_image(t_xvar *xvar,int width, int height,int format)
+void	*mlx_int_new_image(t_xvar *xvar, int width, int height, int format)
 {
   t_img	*img;
 
