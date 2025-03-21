@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   FdF.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cayuso-f <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: crayfe <crayfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 15:44:08 by cayuso-f          #+#    #+#             */
-/*   Updated: 2024/11/25 11:39:49 by cayuso-f         ###   ########.fr       */
+/*   Updated: 2025/03/21 15:24:10 by crayfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../libft/src/libft.h"
 #include "../minilibx/mlx.h"
 //#include "../minilibx/mlx_int.h"
@@ -23,7 +24,7 @@ typedef struct s_model_data
 	int	num_cols;
 }	t_model;
 
-typedef	struct s_img
+typedef struct s_img
 {
 	void	*img_ptr;
 	char	*img_pixels_ptr;
@@ -47,6 +48,10 @@ t_model	*load_model(char *model_file);
 void	free_model(t_model	*m);
 void	print_model(t_model *m);
 /* fdf_window_utils.c */
+void	set_pixel(t_mlx_data *mlibx, int color, int x, int y);
 void	set_bg_img(t_mlx_data *mlibx, int color);
+void	draw_dots(t_mlx_data *mlibx, t_model *fdf);
+float	get_iso_x(int x, int y, int z);
+float	get_iso_y(int x, int y, int z);
 int		handle_keys(int key, t_mlx_data *mlibx);
 int		setup_win(t_mlx_data *mlibx);
