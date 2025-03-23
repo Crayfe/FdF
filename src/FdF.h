@@ -6,15 +6,15 @@
 /*   By: crayfe <crayfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 15:44:08 by cayuso-f          #+#    #+#             */
-/*   Updated: 2025/03/21 15:24:10 by crayfe           ###   ########.fr       */
+/*   Updated: 2025/03/23 20:08:12 by crayfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/src/libft.h"
 #include "../minilibx/mlx.h"
 //#include "../minilibx/mlx_int.h"
-#define WIDTH   400
-#define HEIGHT  400
+#define WIDTH   800
+#define HEIGHT  600
 
 typedef struct s_model_data
 {

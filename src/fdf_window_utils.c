@@ -6,7 +6,7 @@
 /*   By: crayfe <crayfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 15:44:08 by cayuso-f          #+#    #+#             */
-/*   Updated: 2025/03/21 16:03:18 by crayfe           ###   ########.fr       */
+/*   Updated: 2025/03/23 20:12:20 by crayfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	handle_keys(int key, t_mlx_data *mlibx)
 	else if (key == 114)
 	{
 		set_bg_img(mlibx, 16711680);
-		set_pixel(mlibx, 65280, WIDTH / 2, HEIGHT / 4);
+		draw_dots(mlibx, mlibx->fdf_model);
 		mlx_put_image_to_window(
 			mlibx->mlx_ptr, mlibx->win_ptr, mlibx->img.img_ptr, 0, 0);
 	}
@@ -42,6 +42,14 @@ int	handle_keys(int key, t_mlx_data *mlibx)
 	else if (key == 98)
 	{
 		set_bg_img(mlibx, 255);
+		draw_dots(mlibx, mlibx->fdf_model);
+		mlx_put_image_to_window(
+			mlibx->mlx_ptr, mlibx->win_ptr, mlibx->img.img_ptr, 0, 0);
+	}
+	else if (key == 99)
+	{
+		set_bg_img(mlibx, 0);
+		draw_dots(mlibx, mlibx->fdf_model);
 		mlx_put_image_to_window(
 			mlibx->mlx_ptr, mlibx->win_ptr, mlibx->img.img_ptr, 0, 0);
 	}
@@ -79,7 +87,6 @@ void	draw_dots(t_mlx_data *mlibx, t_model *fdf)
 {
 	int	x;
 	int	y;
-
 	int x_iso;
 	int y_iso;
 
@@ -90,10 +97,10 @@ void	draw_dots(t_mlx_data *mlibx, t_model *fdf)
 		while (x < fdf->num_cols)
 		{
 			x_iso = WIDTH/2 + (int)get_iso_x(10 * x, 10 * y, fdf->model[y][x]);
-			y_iso = HEIGHT/4  + (int)get_iso_y(10 * x, 10 * y, fdf->model[y][x]);
+			y_iso = HEIGHT/4  + (int)get_iso_y(10 * x, 10 * y, 10 * fdf->model[y][x]);
 			ft_printf("%i ", fdf->model[y][x]);
 			if ((x_iso >= 0 && x_iso <= WIDTH) && (y_iso >= 0 && y_iso <= HEIGHT)) 
-				set_pixel(mlibx, 255, x_iso, y_iso);
+				set_pixel(mlibx, 0xFFFFFF, x_iso, y_iso);
 			++x;
 		}
 		++y;
@@ -114,7 +121,7 @@ float	get_iso_y(int x, int y, int z)
 {
 	float	iso_y;
 
-	iso_y = (float)(y + x) / (float)(2 - z);
+	iso_y = -((float)z/ 2) + ((float)(x + y) / 2);
 	//iso_y = ((float)x * 0.5) - ((float)y * 0.8660254) - ((float)z * 0.8660254);
 	return (iso_y);
 }
@@ -124,14 +131,14 @@ int	setup_win(t_mlx_data *mlibx)
 	mlibx->mlx_ptr = mlx_init();
 	if (!mlibx->mlx_ptr)
 		return (1);
-	mlibx->win_ptr = mlx_new_window(mlibx->mlx_ptr, HEIGHT, WIDTH, "FdF");
+	mlibx->win_ptr = mlx_new_window(mlibx->mlx_ptr, WIDTH, HEIGHT, "FdF");
 	if (!mlibx->win_ptr)
 	{
 		mlx_destroy_display(mlibx->mlx_ptr);
 		free(mlibx->mlx_ptr);
 		return (1);
 	}
-	mlibx->img.img_ptr = mlx_new_image(mlibx->mlx_ptr, HEIGHT, WIDTH);
+	mlibx->img.img_ptr = mlx_new_image(mlibx->mlx_ptr, WIDTH, HEIGHT);
 	mlibx->img.img_pixels_ptr = mlx_get_data_addr(mlibx->img.img_ptr,
 			&mlibx->img.bits_per_pixel, &mlibx->img.line_len,
 			&mlibx->img.endian);
