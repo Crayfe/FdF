@@ -89,8 +89,8 @@ void	draw_dots(t_mlx_data *mlibx, t_model *fdf)
 		x = 0;
 		while (x < fdf->num_cols)
 		{
-			x_iso = WIDTH + (int)get_iso_x(10 * x, 10 * y, 10 * fdf->model[y][x]);
-			y_iso = HEIGHT  + (int)get_iso_y(10 * x, 10 * y, 10 * fdf->model[y][x]);
+			x_iso = WIDTH/2 + (int)get_iso_x(10 * x, 10 * y, fdf->model[y][x]);
+			y_iso = HEIGHT/4  + (int)get_iso_y(10 * x, 10 * y, fdf->model[y][x]);
 			ft_printf("%i ", fdf->model[y][x]);
 			if ((x_iso >= 0 && x_iso <= WIDTH) && (y_iso >= 0 && y_iso <= HEIGHT)) 
 				set_pixel(mlibx, 255, x_iso, y_iso);
@@ -104,7 +104,9 @@ float	get_iso_x(int x, int y, int z)
 {
 	float	iso_x;
 
-	iso_x = ((float)x * 0.8660254) - ((float)y * 0.5) - ((float)z * 0.5);
+	(void)z;
+	iso_x = x - y;
+	//iso_x = ((float)x * 0.8660254) - ((float)y * 0.5) - ((float)z * 0.5);
 	return (iso_x);
 }
 
@@ -112,7 +114,8 @@ float	get_iso_y(int x, int y, int z)
 {
 	float	iso_y;
 
-	iso_y = ((float)x * 0.5) - ((float)y * 0.8660254) - ((float)z * 0.8660254);
+	iso_y = (float)(y + x) / (float)(2 - z);
+	//iso_y = ((float)x * 0.5) - ((float)y * 0.8660254) - ((float)z * 0.8660254);
 	return (iso_y);
 }
 
