@@ -20,7 +20,6 @@ int	handle_keys(int key, t_mlx_data *mlibx)
 		mlx_destroy_image(mlibx->mlx_ptr, mlibx->img.img_ptr);
 		mlx_destroy_window(mlibx->mlx_ptr, mlibx->win_ptr);
 		mlx_destroy_display(mlibx->mlx_ptr);
-		//free(mlibx->img.img_pixels_ptr);
 		free(mlibx->mlx_ptr);
 		free_model(mlibx->fdf_model);
 		exit(0);
@@ -83,29 +82,6 @@ void	set_pixel(t_mlx_data *mlibx, int color, int x, int y)
 		+ (x * (mlibx->img.bits_per_pixel / 8));
 	*((unsigned int *)(offset + mlibx->img.img_pixels_ptr)) = color;
 }
-void	draw_dots(t_mlx_data *mlibx, t_model *fdf)
-{
-	int	x;
-	int	y;
-	int x_iso;
-	int y_iso;
-
-	y = 0;
-	while (y < fdf->num_rows)
-	{
-		x = 0;
-		while (x < fdf->num_cols)
-		{
-			x_iso = WIDTH/2 + (int)get_iso_x(10 * x, 10 * y, fdf->model[y][x]);
-			y_iso = HEIGHT/4  + (int)get_iso_y(10 * x, 10 * y, 10 * fdf->model[y][x]);
-			ft_printf("%i ", fdf->model[y][x]);
-			if ((x_iso >= 0 && x_iso <= WIDTH) && (y_iso >= 0 && y_iso <= HEIGHT)) 
-				set_pixel(mlibx, 0xFFFFFF, x_iso, y_iso);
-			++x;
-		}
-		++y;
-	}
-}
 
 float	get_iso_x(int x, int y, int z)
 {
@@ -113,7 +89,6 @@ float	get_iso_x(int x, int y, int z)
 
 	(void)z;
 	iso_x = x - y;
-	//iso_x = ((float)x * 0.8660254) - ((float)y * 0.5) - ((float)z * 0.5);
 	return (iso_x);
 }
 
@@ -121,8 +96,7 @@ float	get_iso_y(int x, int y, int z)
 {
 	float	iso_y;
 
-	iso_y = -((float)z/ 2) + ((float)(x + y) / 2);
-	//iso_y = ((float)x * 0.5) - ((float)y * 0.8660254) - ((float)z * 0.8660254);
+	iso_y = -((float)z / 2) + ((float)(x + y) / 2);
 	return (iso_y);
 }
 

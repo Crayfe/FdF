@@ -15,6 +15,7 @@
 //#include "../minilibx/mlx_int.h"
 #define WIDTH   800
 #define HEIGHT  600
+#define	SCALE	10
 
 typedef struct s_model_data
 {
