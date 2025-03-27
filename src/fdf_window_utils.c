@@ -6,7 +6,7 @@
 /*   By: crayfe <crayfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 15:44:08 by cayuso-f          #+#    #+#             */
-/*   Updated: 2025/03/23 20:12:20 by crayfe           ###   ########.fr       */
+/*   Updated: 2025/03/25 08:13:52 by crayfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int	handle_keys(int key, t_mlx_data *mlibx)
 	else if (key == 98)
 	{
 		set_bg_img(mlibx, 255);
-		draw_dots(mlibx, mlibx->fdf_model);
+		draw_x_axis(mlibx, mlibx->fdf_model);
+		draw_y_axis(mlibx, mlibx->fdf_model);
 		mlx_put_image_to_window(
 			mlibx->mlx_ptr, mlibx->win_ptr, mlibx->img.img_ptr, 0, 0);
 	}
@@ -78,9 +79,12 @@ void	set_pixel(t_mlx_data *mlibx, int color, int x, int y)
 {
 	int	offset;
 
-	offset = (mlibx->img.line_len * y)
-		+ (x * (mlibx->img.bits_per_pixel / 8));
-	*((unsigned int *)(offset + mlibx->img.img_pixels_ptr)) = color;
+	if ((x >= 0 && x <= WIDTH) && (y >= 0 && y <= HEIGHT))
+	{
+		offset = (mlibx->img.line_len * y)
+			+ (x * (mlibx->img.bits_per_pixel / 8));
+		*((unsigned int *)(offset + mlibx->img.img_pixels_ptr)) = color;
+	}
 }
 
 float	get_iso_x(int x, int y, int z)

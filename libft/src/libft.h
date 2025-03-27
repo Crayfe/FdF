@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cayuso-f <cayuso-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crayfe <crayfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:11:57 by cayuso-f          #+#    #+#             */
-/*   Updated: 2024/09/24 20:27:33 by cayuso-f         ###   ########.fr       */
+/*   Updated: 2025/03/25 17:24:19 by crayfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 void	free_2d_str(char **str);
 int		ft_sqrt(int num);
+int		ft_abs(int num);
+int		ft_round(float num);
 
 typedef struct s_list
 {
