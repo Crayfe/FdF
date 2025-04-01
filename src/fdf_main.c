@@ -16,14 +16,21 @@ int	main(int argc, char **argv)
 {
 	t_mlx_data	mlibx;
 	t_model		*fdf_model;
+	int			fd;
 
 	fdf_model = 0;
 	if (argc != 2)
 		ft_printf("Usage: ./fdf <filename>");
 	else
+	{
+		fd = open(argv[1], 0);
+		if (fd <= 0)
+			return (ft_printf("Error: file %s does not exist\n", argv[1]), 1);
+		close(fd);
 		fdf_model = load_model(argv[1]);
-	if (!fdf_model)
-		return (ft_printf("Error: file %s does not exist", argv[1]), 1);
+		if (!fdf_model)
+			return (ft_printf("Error loding model\n", argv[1]), 1);
+	}
 	mlibx.fdf_model = fdf_model;
 	print_model(fdf_model);
 	ft_printf("\n");
