@@ -27,81 +27,32 @@ int	handle_keys(int key, t_mlx_data *mlibx)
 	else if (key == 114)
 	{
 		set_bg_img(mlibx, 16711680);
-		draw_dots(mlibx, mlibx->fdf_model);
+		draw_iso_dots(mlibx, mlibx->fdf_model);
 		mlx_put_image_to_window(
 			mlibx->mlx_ptr, mlibx->win_ptr, mlibx->img.img_ptr, 0, 0);
 	}
 	else if (key == 103)
 	{
 		set_bg_img(mlibx, 65280);
-		draw_dots(mlibx, mlibx->fdf_model);
+		draw_iso_dots(mlibx, mlibx->fdf_model);
 		mlx_put_image_to_window(
 			mlibx->mlx_ptr, mlibx->win_ptr, mlibx->img.img_ptr, 0, 0);
 	}
 	else if (key == 98)
 	{
 		set_bg_img(mlibx, 255);
-		draw_x_axis(mlibx, mlibx->fdf_model);
-		draw_y_axis(mlibx, mlibx->fdf_model);
+		draw_fdf(mlibx);
 		mlx_put_image_to_window(
 			mlibx->mlx_ptr, mlibx->win_ptr, mlibx->img.img_ptr, 0, 0);
 	}
 	else if (key == 99)
 	{
 		set_bg_img(mlibx, 0);
-		draw_dots(mlibx, mlibx->fdf_model);
+		draw_iso_dots(mlibx, mlibx->fdf_model);
 		mlx_put_image_to_window(
 			mlibx->mlx_ptr, mlibx->win_ptr, mlibx->img.img_ptr, 0, 0);
 	}
 	return (0);
-}
-
-void	set_bg_img(t_mlx_data *mlibx, int color)
-{
-	int	i;
-	int	j;
-	int	offset;
-
-	i = -1;
-	while (++i < HEIGHT)
-	{
-		j = -1;
-		while (++j < WIDTH)
-		{
-			offset = (mlibx->img.line_len * i)
-				+ (j * (mlibx->img.bits_per_pixel / 8));
-			*((unsigned int *)(offset + mlibx->img.img_pixels_ptr)) = color;
-		}
-	}
-}
-
-void	set_pixel(t_mlx_data *mlibx, int color, int x, int y)
-{
-	int	offset;
-
-	if ((x >= 0 && x <= WIDTH) && (y >= 0 && y <= HEIGHT))
-	{
-		offset = (mlibx->img.line_len * y)
-			+ (x * (mlibx->img.bits_per_pixel / 8));
-		*((unsigned int *)(offset + mlibx->img.img_pixels_ptr)) = color;
-	}
-}
-
-float	get_iso_x(int x, int y, int z)
-{
-	float	iso_x;
-
-	(void)z;
-	iso_x = x - y;
-	return (iso_x);
-}
-
-float	get_iso_y(int x, int y, int z)
-{
-	float	iso_y;
-
-	iso_y = -((float)z / 2) + ((float)(x + y) / 2);
-	return (iso_y);
 }
 
 int	setup_win(t_mlx_data *mlibx)

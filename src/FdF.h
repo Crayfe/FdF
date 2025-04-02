@@ -6,16 +6,16 @@
 /*   By: crayfe <crayfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 15:44:08 by cayuso-f          #+#    #+#             */
-/*   Updated: 2025/04/01 17:12:09 by cayuso-f         ###   ########.fr       */
+/*   Updated: 2025/04/02 16:51:13 by cayuso-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/src/libft.h"
 #include "../minilibx/mlx.h"
-//#include "../minilibx/mlx_int.h"
+#include <fcntl.h>
 #define WIDTH   800
 #define HEIGHT  600
-#define SCALE	10
+#define SCALE	20
 
 typedef struct s_img
 {
@@ -36,10 +36,14 @@ typedef struct s_model_data
 
 typedef struct s_mlx_data
 {
-	void	*mlx_ptr;
-	void	*win_ptr;
-	t_model	*fdf_model;
-	t_img	img;
+	void				*mlx_ptr;
+	void				*win_ptr;
+	t_model				*fdf_model;
+	t_img				img;
+	unsigned int		width;
+	unsigned int		height;
+	unsigned int		scale;
+
 }	t_mlx_data;
 
 typedef struct s_dot
@@ -47,6 +51,12 @@ typedef struct s_dot
 	int	x;
 	int	y;
 }	t_dot;
+
+typedef struct s_colors
+{
+	int	color0;
+	int	color1;
+}	t_colors;
 
 typedef struct s_bsh
 {
@@ -67,16 +77,16 @@ void	free_model(t_model	*m);
 void	print_model(t_model *m);
 void	print_colors(t_model *m);
 /* fdf_window_utils.c */
-void	set_pixel(t_mlx_data *mlibx, int color, int x, int y);
-void	set_bg_img(t_mlx_data *mlibx, int color);
-
-float	get_iso_x(int x, int y, int z);
-float	get_iso_y(int x, int y, int z);
 int		handle_keys(int key, t_mlx_data *mlibx);
 int		setup_win(t_mlx_data *mlibx);
-/* fdf_window_utils.c */
-int		is_drawable(t_dot dot);
-void	draw_dots(t_mlx_data *mlibx, t_model *fdf);
-void	draw_line(t_mlx_data *mlibx, t_dot dot0, t_dot dot1);
-void	draw_x_axis(t_mlx_data *mlibx, t_model *fdf);
-void	draw_y_axis(t_mlx_data *mlibx, t_model *fdf);
+/* fdf_image_utils.c */
+void	set_pixel(t_mlx_data *mlibx, int color, int x, int y);
+void	set_bg_img(t_mlx_data *mlibx, int color);
+/* fdf_iso_proyect.c */
+void	compose_iso(t_mlx_data *mlibx, t_dot *dot_iso, t_dot dot);
+/* fdf_draw_utils.c */
+void	draw_iso_dots(t_mlx_data *mlibx, t_model *fdf);
+void	draw_fdf(t_mlx_data *mlibx);
+/* fdf_besenhan_line.c */
+void	draw_bresenhan_line(t_mlx_data *mlibx, t_dot dot0, t_dot dot1,
+		t_colors colors);

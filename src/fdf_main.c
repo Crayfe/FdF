@@ -15,10 +15,8 @@
 int	main(int argc, char **argv)
 {
 	t_mlx_data	mlibx;
-	t_model		*fdf_model;
 	int			fd;
 
-	fdf_model = 0;
 	if (argc != 2)
 		ft_printf("Usage: ./fdf <filename>");
 	else
@@ -27,14 +25,16 @@ int	main(int argc, char **argv)
 		if (fd <= 0)
 			return (ft_printf("Error: file %s does not exist\n", argv[1]), 1);
 		close(fd);
-		fdf_model = load_model(argv[1]);
-		if (!fdf_model)
+		mlibx.fdf_model = load_model(argv[1]);
+		mlibx.height = HEIGHT;
+		mlibx.width = WIDTH;
+		mlibx.scale = SCALE;
+		if (!mlibx.fdf_model)
 			return (ft_printf("Error loding model\n", argv[1]), 1);
 	}
-	mlibx.fdf_model = fdf_model;
-	print_model(fdf_model);
+	print_model(mlibx.fdf_model);
 	ft_printf("\n");
-	print_colors(fdf_model);
+	print_colors(mlibx.fdf_model);
 	if (setup_win(&mlibx) == 0)
 		mlx_loop(mlibx.mlx_ptr);
 	return (0);
