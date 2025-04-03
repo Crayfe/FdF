@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_model_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cayuso-f <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: crayfe <crayfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 15:44:08 by cayuso-f          #+#    #+#             */
-/*   Updated: 2024/11/25 11:39:49 by cayuso-f         ###   ########.fr       */
+/*   Updated: 2025/04/03 20:00:40 by crayfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,31 +39,30 @@ int	get_num_cols(char *file)
 int	get_num_rows(char *file)
 {
 	int		fd;
+	int		num_chars;
 	int		num_lines;
 	char	c;
 
 	fd = open(file, 0);
 	if (fd > 0)
 	{
-		num_lines = 1;
+		num_chars = 0;
+		num_lines = 0;
 		while (read(fd, &c, 1) > 0)
+		{
+			++num_chars;
 			if (c == '\n')
+			{
+				num_chars = 0;
 				++num_lines;
+			}
+		}
+		if (num_chars > 0)
+			++num_lines;
 		close(fd);
-		return (num_lines - 1);
+		return (num_lines);
 	}
 	return (-1);
-}
-
-int	load_color(char *data)
-{
-	int	color;
-
-	if (ft_strchr(data, ','))
-		color = 0xFF0000;
-	else
-		color = 0xFFFFFF;
-	return (color);
 }
 
 int	load_new_row(t_model *m, char *line, int row)
@@ -78,9 +77,8 @@ int	load_new_row(t_model *m, char *line, int row)
 	i = 0;
 	while (i <= m->num_cols - 1)
 	{
-		ft_printf("%s\n", split[i]);
 		m->model[row][i] = ft_atoi(split[i]);
-		m->colors[row][i] = load_color(split[i]);
+		m->colors[row][i] = read_color(split[i]);
 		i++;
 	}
 	free_2d_str(split);
@@ -128,42 +126,4 @@ void	free_model(t_model	*m)
 	free(m->model);
 	free(m->colors);
 	free(m);
-}
-
-void	print_model(t_model *fdf)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < fdf->num_rows)
-	{
-		j = 0;
-		while (j < fdf->num_cols)
-		{
-			ft_printf("%i ", fdf->model[i][j]);
-			j++;
-		}
-		ft_printf("\n");
-		i++;
-	}
-}
-
-void	print_colors(t_model *fdf)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < fdf->num_rows)
-	{
-		j = 0;
-		while (j < fdf->num_cols)
-		{
-			ft_printf("%x ", fdf->colors[i][j]);
-			j++;
-		}
-		ft_printf("\n");
-		i++;
-	}
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_bresenhan.c                                    :+:      :+:    :+:   */
+/*   fdf_bresenhan_line.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: crayfe <crayfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 15:44:08 by cayuso-f          #+#    #+#             */
-/*   Updated: 2025/04/02 16:39:32 by cayuso-f         ###   ########.fr       */
+/*   Updated: 2025/04/03 20:14:17 by crayfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,13 @@ void	init_vars(t_bsh *vars, t_dot dot0, t_dot dot1)
 	vars->sy = get_triple(dot0.y, dot1.y);
 }
 
+int	get_color_step(t_bsh vars)
+{
+	if (ft_abs(vars.dx) >= ft_abs(vars.dy))
+		return (ft_abs(vars.dx));
+	return (ft_abs(vars.dy));
+}
+
 void	update_vars_and_dot(t_bsh *vars, t_dot *dot0)
 {
 	vars->err2 = 2 * vars->err1;
@@ -51,21 +58,20 @@ void	draw_bresenhan_line(t_mlx_data *mlibx, t_dot dot0, t_dot dot1,
 		t_colors colors)
 {
 	t_bsh	vars;
-	static int i = 0;
+	int		color;
+	int		i;
 
-	(void)colors;
-	++i;
-	ft_printf("line %i:\n");
+	i = 0;
 	init_vars(&vars, dot0, dot1);
-	ft_printf("dx = %i:\n", vars.dx);
-	ft_printf("dy = %i:\n", vars.dy);
+	color = colors.color0;
+	colors.step = get_color_step(vars);
 	while (1)
 	{
-		ft_printf("Dot\n");
-		set_pixel(mlibx, 2147483647, dot0.x, dot0.y);
+		set_pixel(mlibx, color, dot0.x, dot0.y);
 		if (dot0.x == dot1.x && dot0.y == dot1.y)
 			break ;
 		update_vars_and_dot(&vars, &dot0);
+		color = get_gradient_color(colors, i);
+		i++;
 	}
 }
-

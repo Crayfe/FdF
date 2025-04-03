@@ -1,38 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_main.c                                         :+:      :+:    :+:   */
+/*   fdf_debug_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: crayfe <crayfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 15:44:08 by cayuso-f          #+#    #+#             */
-/*   Updated: 2025/04/03 19:56:39 by crayfe           ###   ########.fr       */
+/*   Updated: 2025/04/03 19:58:29 by crayfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FdF.h"
 
-int	main(int argc, char **argv)
+void	print_model(t_model *fdf)
 {
-	t_mlx_data	mlibx;
-	int			fd;
+	int	i;
+	int	j;
 
-	if (argc != 2)
-		ft_printf("Usage: ./fdf <filename>");
-	else
+	i = 0;
+	while (i < fdf->num_rows)
 	{
-		fd = open(argv[1], 0);
-		if (fd <= 0)
-			return (ft_printf("Error: file %s does not exist\n", argv[1]), 1);
-		close(fd);
-		mlibx.fdf_model = load_model(argv[1]);
-		mlibx.offset_x = WIDTH / 2;
-		mlibx.offset_y = HEIGHT / 4;
-		mlibx.scale = SCALE;
-		if (!mlibx.fdf_model)
-			return (ft_printf("Error loding model\n", argv[1]), 1);
+		j = 0;
+		while (j < fdf->num_cols)
+		{
+			ft_printf("%i ", fdf->model[i][j]);
+			j++;
+		}
+		ft_printf("\n");
+		i++;
 	}
-	if (setup_win(&mlibx) == 0)
-		mlx_loop(mlibx.mlx_ptr);
-	return (0);
+}
+
+void	print_colors(t_model *fdf)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < fdf->num_rows)
+	{
+		j = 0;
+		while (j < fdf->num_cols)
+		{
+			ft_printf("%i ", fdf->colors[i][j]);
+			j++;
+		}
+		ft_printf("\n");
+		i++;
+	}
 }

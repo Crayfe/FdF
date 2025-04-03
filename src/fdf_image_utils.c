@@ -6,7 +6,7 @@
 /*   By: crayfe <crayfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 15:44:08 by cayuso-f          #+#    #+#             */
-/*   Updated: 2025/03/25 08:13:52 by crayfe           ###   ########.fr       */
+/*   Updated: 2025/04/03 20:14:35 by crayfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	set_pixel(t_mlx_data *mlibx, int color, int x, int y)
 {
 	int	offset;
 
-	if ((x >= 0 && x <= WIDTH) && (y >= 0 && y <= HEIGHT))
+	if ((x >= 0 && x < WIDTH) && (y >= 0 && y < HEIGHT))
 	{
 		offset = (mlibx->img.line_len * y)
 			+ (x * (mlibx->img.bits_per_pixel / 8));
