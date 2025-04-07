@@ -6,24 +6,27 @@
 /*   By: crayfe <crayfe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 15:44:08 by cayuso-f          #+#    #+#             */
-/*   Updated: 2025/04/03 20:05:52 by crayfe           ###   ########.fr       */
+/*   Updated: 2025/04/04 08:59:07 by crayfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FdF.h"
 
+void	close_window(t_mlx_data *mlibx)
+{
+	mlx_destroy_image(mlibx->mlx_ptr, mlibx->img.img_ptr);
+	mlx_destroy_window(mlibx->mlx_ptr, mlibx->win_ptr);
+	mlx_destroy_display(mlibx->mlx_ptr);
+	free(mlibx->mlx_ptr);
+	free_model(mlibx->fdf_model);
+	exit(0);
+}
+
 int	handle_keys(int key, t_mlx_data *mlibx)
 {
 	ft_printf("Key pressed: %i\n", key);
 	if (key == 65307)
-	{
-		mlx_destroy_image(mlibx->mlx_ptr, mlibx->img.img_ptr);
-		mlx_destroy_window(mlibx->mlx_ptr, mlibx->win_ptr);
-		mlx_destroy_display(mlibx->mlx_ptr);
-		free(mlibx->mlx_ptr);
-		free_model(mlibx->fdf_model);
-		exit(0);
-	}
+		close_window(mlibx);
 	else if (key == 119)
 		mlibx->offset_y += mlibx->scale;
 	else if (key == 97)
@@ -32,6 +35,15 @@ int	handle_keys(int key, t_mlx_data *mlibx)
 		mlibx->offset_y -= mlibx->scale;
 	else if (key == 100)
 		mlibx->offset_x -= mlibx->scale;
+	else if (key == 43)
+		mlibx->scale += 1;
+	else if (key == 45)
+	{
+		if (mlibx->scale > 1)
+			mlibx->scale -= 1;
+	}
+	else
+		return (0);
 	set_bg_img(mlibx, 0);
 	draw_fdf(mlibx);
 	mlx_put_image_to_window(
