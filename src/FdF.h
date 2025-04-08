@@ -43,6 +43,7 @@ typedef struct s_mlx_data
 	int					offset_x;
 	int					offset_y;
 	unsigned int		scale;
+	int					angle;
 
 }	t_mlx_data;
 
@@ -96,6 +97,9 @@ void	compose_iso(t_mlx_data *mlibx, t_dot *dot_iso, t_dot dot);
 
 /* fdf_cavalier.c */
 void	compose_cab(t_mlx_data *mlibx, t_dot *dot_iso, t_dot dot);
+
+/* fdf_iso_rotate.c */
+void	compose_rotate(t_mlx_data *mlibx, t_dot *dot_iso, t_dot dot);
 
 /* fdf_draw_utils.c */
 void	draw_iso_dots(t_mlx_data *mlibx, t_model *fdf);

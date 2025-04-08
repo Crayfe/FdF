@@ -42,13 +42,13 @@ void	draw_x_axis(t_mlx_data *mlibx, t_model *fdf)
 	while (dot.y < fdf->num_rows)
 	{
 		dot.x = 0;
-		compose_iso(mlibx, &dot_iso0, dot);
+		compose_rotate(mlibx, &dot_iso0, dot);
 		while (dot.x < fdf->num_cols - 1)
 		{
 			colors.color0 = fdf->colors[dot.y][dot.x];
 			++dot.x;
 			colors.color1 = fdf->colors[dot.y][dot.x];
-			compose_iso(mlibx, &dot_iso1, dot);
+			compose_rotate(mlibx, &dot_iso1, dot);
 			draw_bresenhan_line(mlibx, dot_iso0, dot_iso1, colors);
 			dot_iso0.x = dot_iso1.x;
 			dot_iso0.y = dot_iso1.y;
@@ -68,13 +68,13 @@ void	draw_y_axis(t_mlx_data *mlibx, t_model *fdf)
 	while (dot.x < fdf->num_cols)
 	{
 		dot.y = 0;
-		compose_iso(mlibx, &dot_iso0, dot);
+		compose_rotate(mlibx, &dot_iso0, dot);
 		while (dot.y < fdf->num_rows - 1)
 		{
 			colors.color0 = fdf->colors[dot.y][dot.x];
 			++dot.y;
 			colors.color1 = fdf->colors[dot.y][dot.x];
-			compose_iso(mlibx, &dot_iso1, dot);
+			compose_rotate(mlibx, &dot_iso1, dot);
 			draw_bresenhan_line(mlibx, dot_iso0, dot_iso1, colors);
 			dot_iso0.x = dot_iso1.x;
 			dot_iso0.y = dot_iso1.y;

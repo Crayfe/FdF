@@ -22,11 +22,14 @@ void	close_window(t_mlx_data *mlibx)
 	exit(0);
 }
 
-int	handle_keys(int key, t_mlx_data *mlibx)
+int	key_options(int key, t_mlx_data *mlibx)
 {
-	ft_printf("Key pressed: %i\n", key);
 	if (key == 65307)
 		close_window(mlibx);
+	else if (key == 65361)
+		mlibx->angle += 1;
+	else if (key == 65363)
+		mlibx->angle -= 1;
 	else if (key == 119)
 		mlibx->offset_y += mlibx->scale;
 	else if (key == 97)
@@ -44,10 +47,19 @@ int	handle_keys(int key, t_mlx_data *mlibx)
 	}
 	else
 		return (0);
-	set_bg_img(mlibx, 0);
-	draw_fdf(mlibx);
-	mlx_put_image_to_window(
-		mlibx->mlx_ptr, mlibx->win_ptr, mlibx->img.img_ptr, 0, 0);
+	return (1);
+}
+
+int	handle_keys(int key, t_mlx_data *mlibx)
+{
+	ft_printf("Key pressed: %i\n", key);
+	if (key_options(key, mlibx))
+	{
+		set_bg_img(mlibx, 0);
+		draw_fdf(mlibx);
+		mlx_put_image_to_window(
+			mlibx->mlx_ptr, mlibx->win_ptr, mlibx->img.img_ptr, 0, 0);
+	}
 	return (0);
 }
 
