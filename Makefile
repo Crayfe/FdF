@@ -66,7 +66,7 @@ $(MINILIBX_DIR)/libmlx_Linux.a:
 	$(MAKE) -C $(MINILIBX_DIR)
 
 clean:
-	rm -rf $(OBJ_DIR) $c(BONUS_OBJ_DIR)
+	rm -rf $(OBJ_DIR) $(BONUS_OBJ_DIR)
 	$(MAKE) clean -C $(LIBFT_DIR)
 	$(MAKE) clean -C $(MINILIBX_DIR)
 
