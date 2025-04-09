@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_window_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crayfe <crayfe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cayuso-f <cayuso-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 15:44:08 by cayuso-f          #+#    #+#             */
 /*   Updated: 2025/04/04 08:59:07 by crayfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "FdF.h"
+#include "fdf.h"
 
 void	close_window(t_mlx_data *mlibx)
 {
