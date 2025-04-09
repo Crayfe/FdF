@@ -13,6 +13,7 @@
 #include "../libft/src/libft.h"
 #include "../minilibx/mlx.h"
 #include <fcntl.h>
+#include <math.h>
 #define WIDTH   1000
 #define HEIGHT  800
 #define SCALE	30
