@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_image_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crayfe <crayfe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cayuso-f <causo-f@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 15:44:08 by cayuso-f          #+#    #+#             */
 /*   Updated: 2025/04/03 20:14:35 by crayfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "FdF.h"
+#include "fdf.h"
 
 void	set_bg_img(t_mlx_data *mlibx, int color)
 {
