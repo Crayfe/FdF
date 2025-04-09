@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_main.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crayfe <crayfe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cayuso-f <cayuso-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 15:44:08 by cayuso-f          #+#    #+#             */
 /*   Updated: 2025/04/03 19:56:39 by crayfe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "FdF.h"
+#include "fdf.h"
 
 int	main(int argc, char **argv)
 {
