@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -ggdb
+CFLAGS = -Wall -Wextra -Werror
 
 LIBFT_DIR = libft
 MINILIBX_DIR = minilibx
@@ -23,7 +23,7 @@ SRCS = $(wildcard $(SRC_DIR)/*.c)
 OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 
 # Nombre del ejecutable
-NAME = FdF
+NAME = fdf
 
 # Regla por defecto (compilar el ejecutable)
 all:	$(NAME)
