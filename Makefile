@@ -22,6 +22,9 @@ OBJ_DIR = obj
 SRCS = $(wildcard $(SRC_DIR)/*.c)
 OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 
+BONUS_SRCS = $(wildcard $(BONUS_SRC_DIR)/*.c)
+BONUS_OBJS = $(patsubst $(BONUS_SRC_DIR)/%.c,$(BONUS_OBJ_DIR)/%.o,$(BONUS_SRCS))
+
 # Nombre del ejecutable
 NAME = fdf
 
@@ -62,5 +65,16 @@ fclean: clean
 	$(MAKE) clean -C $(MINILIBX_DIR)
 
 re: fclean all
+
+bonus: $(BONUS_NAME)
+
+$(BONUS_NAME): $(BONUS_OBJS) $(LIBFT_DIR)/libft.a
+	$(CC) $(CFLAGS) -o $@ $^ -L $(LIBFT_DIR) -lft
+
+$(BONUS_OBJ_DIR)/%.o: $(BONUS_SRC_DIR)/%.c | $(BONUS_OBJ_DIR)
+	$(CC) $(CFLAGS) -I $(LIBFT_DIR) -c $< -o $@
+
+$(BONUS_OBJ_DIR):
+	mkdir -p $(BONUS_OBJ_DIR)
 
 .PHONY: all clean fclean re
