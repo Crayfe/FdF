@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_iso_rotate.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crayfe <crayfe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cayuso-f <causo-f@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 15:44:08 by cayuso-f          #+#    #+#             */
 /*   Updated: 2025/04/08 15:25:15 by cayuso-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "FdF.h"
-#include <math.h>
+#include "fdf.h"
 
 float	rotate_x(int x, int y, int z, int angle)
 {
