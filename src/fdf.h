@@ -1,9 +1,9 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   FdF.h                                              :+:      :+:    :+:   */
+/*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crayfe <crayfe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cayuso-f <cayuso-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 15:44:08 by cayuso-f          #+#    #+#             */
 /*   Updated: 2025/04/03 20:12:08 by crayfe           ###   ########.fr       */
@@ -44,7 +44,6 @@ typedef struct s_mlx_data
 	int					offset_y;
 	unsigned int		scale;
 	int					angle;
-
 }	t_mlx_data;
 
 typedef struct s_dot
@@ -75,7 +74,6 @@ typedef struct s_bsh
 	int	sy;
 	int	err1;
 	int	err2;
-
 }	t_bsh;
 
 /* fdf_model_utils.c */
