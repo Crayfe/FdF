@@ -6,7 +6,7 @@
 /*   By: cayuso-f <cayuso-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 15:44:08 by cayuso-f          #+#    #+#             */
-/*   Updated: 2025/04/03 19:56:39 by crayfe           ###   ########.fr       */
+/*   Updated: 2025/04/09 17:08:26 by cayuso-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char **argv)
 	{
 		fd = open(argv[1], 0);
 		if (fd <= 0)
-			return (ft_printf("\033[0;31mError: file \"%s\" does not exist\033[0m\n",argv[1]), 1);
+			return (ft_printf("\033[0;31mFile does not exist\033[0m\n"), 1);
 		close(fd);
 		mlibx.fdf_model = load_model(argv[1]);
 		mlibx.offset_x = WIDTH / 2;
@@ -31,7 +31,8 @@ int	main(int argc, char **argv)
 		mlibx.scale = SCALE;
 		mlibx.angle = 0;
 		if (!mlibx.fdf_model)
-			return (ft_printf("\033[0;31mError loding model \"%s\"\033[0m\n", argv[1]), 1);
+			return (ft_printf("\033[0;31mError loding model\033[0m\n"), 1);
+		print_helper();
 		if (setup_win(&mlibx) == 0)
 			mlx_loop(mlibx.mlx_ptr);
 	}

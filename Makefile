@@ -17,50 +17,61 @@ LIBFT_DIR = libft
 MINILIBX_DIR = minilibx
 SRC_DIR = src
 OBJ_DIR = obj
+BONUS_SRC_DIR = src_bonus
+BONUS_OBJ_DIR = obj_bonus
 
-# Archivos fuente y objetos
-SRCS = $(wildcard $(SRC_DIR)/*.c)
+SRCS = $(SRC_DIR)/fdf_bresenhan_line.c \
+					$(SRC_DIR)/fdf_draw_utils.c \
+					$(SRC_DIR)/fdf_colors.c \
+					$(SRC_DIR)/fdf_image_utils.c \
+					$(SRC_DIR)/fdf_isometric.c \
+					$(SRC_DIR)/fdf_model_utils.c \
+					$(SRC_DIR)/fdf_window_utils.c \
+					$(SRC_DIR)/fdf_main.c
 OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 
-BONUS_SRCS = $(wildcard $(BONUS_SRC_DIR)/*.c)
+BONUS_SRCS = $(BONUS_SRC_DIR)/fdf_bresenhan_line.c \
+					$(BONUS_SRC_DIR)/fdf_draw_utils.c \
+					$(BONUS_SRC_DIR)/fdf_colors.c \
+					$(BONUS_SRC_DIR)/fdf_image_utils.c \
+					$(BONUS_SRC_DIR)/fdf_iso_rotate.c \
+					$(BONUS_SRC_DIR)/fdf_cavalier.c \
+					$(BONUS_SRC_DIR)/fdf_draw_cavalier.c \
+					$(BONUS_SRC_DIR)/fdf_model_utils.c \
+					$(BONUS_SRC_DIR)/fdf_window_utils.c \
+					$(BONUS_SRC_DIR)/fdf_print_utils.c \
+					$(BONUS_SRC_DIR)/fdf_main.c
 BONUS_OBJS = $(patsubst $(BONUS_SRC_DIR)/%.c,$(BONUS_OBJ_DIR)/%.o,$(BONUS_SRCS))
 
-# Nombre del ejecutable
 NAME = fdf
+BONUS_NAME = fdf_bonus
 
-# Regla por defecto (compilar el ejecutable)
 all:	$(NAME)
 
-# Regla para crear el ejecutable $(NAME)
 $(NAME):	$(OBJS) $(LIBFT_DIR)/libft.a $(MINILIBX_DIR)/libmlx_Linux.a
 	$(CC) $(CFLAGS) -o $@ $^ -L $(LIBFT_DIR) -lft -L $(MINILIBX_DIR) -lmlx_Linux -lX11 -lXext -lm -lpthread -ldl
 
-# Regla para compilar los archivos objeto
 $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -I $(LIBFT_DIR) -I $(MINILIBX_DIR) -c $< -o $@
 
-# Crear el directorio de objetos si no existe
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
-# Regla para compilar la librería libft.a
 $(LIBFT_DIR)/libft.a:
-	@echo "Compilando libft..."
+	@echo "Compiling libft..."
 	$(MAKE) -C $(LIBFT_DIR)
 
-# Regla para compilar la librería minilibx.a
 $(MINILIBX_DIR)/libmlx_Linux.a:
-	@echo "Compilando minilibx..."
+	@echo "Compiling minilibx..."
 	$(MAKE) -C $(MINILIBX_DIR)
 
-# Limpiar los archivos generados
 clean:
-	rm -rf $(OBJ_DIR)
+	rm -rf $(OBJ_DIR) $c(BONUS_OBJ_DIR)
 	$(MAKE) clean -C $(LIBFT_DIR)
 	$(MAKE) clean -C $(MINILIBX_DIR)
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME) $(BONUS_NAME)
 	$(MAKE) fclean -C $(LIBFT_DIR)
 	$(MAKE) clean -C $(MINILIBX_DIR)
 
@@ -68,8 +79,8 @@ re: fclean all
 
 bonus: $(BONUS_NAME)
 
-$(BONUS_NAME): $(BONUS_OBJS) $(LIBFT_DIR)/libft.a
-	$(CC) $(CFLAGS) -o $@ $^ -L $(LIBFT_DIR) -lft
+$(BONUS_NAME): $(BONUS_OBJS) $(LIBFT_DIR)/libft.a $(MINILIBX_DIR)/libmlx_Linux.a
+	$(CC) $(CFLAGS) -o $@ $^ -L $(LIBFT_DIR) -lft -L $(MINILIBX_DIR) -lmlx_Linux -lX11 -lXext -lm -lpthread -ldl
 
 $(BONUS_OBJ_DIR)/%.o: $(BONUS_SRC_DIR)/%.c | $(BONUS_OBJ_DIR)
 	$(CC) $(CFLAGS) -I $(LIBFT_DIR) -c $< -o $@

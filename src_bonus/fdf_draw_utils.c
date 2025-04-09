@@ -6,7 +6,7 @@
 /*   By: cayuso-f <causo-f@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 15:44:08 by cayuso-f          #+#    #+#             */
-/*   Updated: 2025/04/03 20:04:03 by crayfe           ###   ########.fr       */
+/*   Updated: 2025/04/09 18:08:52 by cayuso-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	draw_iso_dots(t_mlx_data *mlibx, t_model *fdf)
 		dot.x = 0;
 		while (dot.x < fdf->num_cols)
 		{
-			compose_iso(mlibx, &dot_iso, dot);
+			compose_rotate(mlibx, &dot_iso, dot);
 			set_pixel(mlibx, fdf->colors[dot.y][dot.x], dot_iso.x, dot_iso.y);
 			++dot.x;
 		}
@@ -83,7 +83,7 @@ void	draw_y_axis(t_mlx_data *mlibx, t_model *fdf)
 	}
 }
 
-void	draw_fdf(t_mlx_data *mlibx)
+void	draw_fdf_iso(t_mlx_data *mlibx)
 {
 	draw_x_axis(mlibx, mlibx->fdf_model);
 	draw_y_axis(mlibx, mlibx->fdf_model);

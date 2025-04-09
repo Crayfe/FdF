@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_debug_utils.c                                  :+:      :+:    :+:   */
+/*   fdf_print_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cayuso-f <causo-f@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 15:44:08 by cayuso-f          #+#    #+#             */
-/*   Updated: 2025/04/03 19:58:29 by crayfe           ###   ########.fr       */
+/*   Updated: 2025/04/09 19:14:41 by cayuso-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,29 @@ void	print_colors(t_model *fdf)
 		ft_printf("\n");
 		i++;
 	}
+}
+
+void	print_helper(void)
+{
+	ft_printf("\n");
+	ft_printf("= = = = = = = = = FDF KEY HELPER = = = = = = = = =\n");
+	ft_printf("\n");
+	ft_printf("TRANSLATION KEYS:\n");
+	ft_printf("	UP -> \'W\'\n");
+	ft_printf("	LEFT -> \'A\'\n");
+	ft_printf("	DOWN -> \'S\'\n");
+	ft_printf("	RIGHT -> \'D\'\n");
+	ft_printf("\n");
+	ft_printf("ROTATION KEYS:\n");
+	ft_printf("	LEFT ROTATION -> \'←\'\n");
+	ft_printf("	RIGHT ROTATION -> \'→\'\n");
+	ft_printf("\n");
+	ft_printf("ZOOM KEYS:\n");
+	ft_printf("	ZOOM IN -> \'+\'\n");
+	ft_printf("	ZOOM OUT -> \'-\'\n");
+	ft_printf("\n");
+	ft_printf("PERSPECTIVE KEYS:\n");
+	ft_printf("	CAVALIER -> \'C\'\n");
+	ft_printf("	ISOMETRIC -> \'I\'\n");
+	ft_printf("\n");
 }

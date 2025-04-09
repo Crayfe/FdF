@@ -6,7 +6,7 @@
 /*   By: cayuso-f <cayuso-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 15:44:08 by cayuso-f          #+#    #+#             */
-/*   Updated: 2025/04/04 08:59:07 by crayfe           ###   ########.fr       */
+/*   Updated: 2025/04/09 16:39:32 by cayuso-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,29 +22,15 @@ void	close_window(t_mlx_data *mlibx)
 	exit(0);
 }
 
+int	close_w(t_mlx_data *mlibx)
+{
+	return (close_window(mlibx), 0);
+}
+
 int	key_options(int key, t_mlx_data *mlibx)
 {
 	if (key == 65307)
 		close_window(mlibx);
-	else if (key == 65361)
-		mlibx->angle += 1;
-	else if (key == 65363)
-		mlibx->angle -= 1;
-	else if (key == 119)
-		mlibx->offset_y += mlibx->scale;
-	else if (key == 97)
-		mlibx->offset_x += mlibx->scale;
-	else if (key == 115)
-		mlibx->offset_y -= mlibx->scale;
-	else if (key == 100)
-		mlibx->offset_x -= mlibx->scale;
-	else if (key == 43)
-		mlibx->scale += 1;
-	else if (key == 45)
-	{
-		if (mlibx->scale > 1)
-			mlibx->scale -= 1;
-	}
 	else
 		return (0);
 	return (1);
@@ -52,7 +38,6 @@ int	key_options(int key, t_mlx_data *mlibx)
 
 int	handle_keys(int key, t_mlx_data *mlibx)
 {
-	ft_printf("Key pressed: %i\n", key);
 	if (key_options(key, mlibx))
 	{
 		set_bg_img(mlibx, 0);
@@ -68,7 +53,8 @@ int	setup_win(t_mlx_data *mlibx)
 	mlibx->mlx_ptr = mlx_init();
 	if (!mlibx->mlx_ptr)
 		return (1);
-	mlibx->win_ptr = mlx_new_window(mlibx->mlx_ptr, WIDTH, HEIGHT, "FdF");
+	mlibx->win_ptr = mlx_new_window(mlibx->mlx_ptr, WIDTH, HEIGHT,
+			"FdF by cayuso-f");
 	if (!mlibx->win_ptr)
 	{
 		mlx_destroy_display(mlibx->mlx_ptr);
@@ -80,6 +66,7 @@ int	setup_win(t_mlx_data *mlibx)
 			&mlibx->img.bits_per_pixel, &mlibx->img.line_len,
 			&mlibx->img.endian);
 	mlx_key_hook(mlibx->win_ptr, handle_keys, mlibx);
+	mlx_hook(mlibx->win_ptr, 17, 0xFFFFFF, close_w, mlibx);
 	set_bg_img(mlibx, 0);
 	draw_fdf(mlibx);
 	mlx_put_image_to_window(
